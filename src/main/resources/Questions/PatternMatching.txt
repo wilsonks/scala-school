@@ -1,0 +1,118 @@
+
+Most interesting feature in scala?
+    Patter Matching ? it is not something that scala has invented.
+
+    Support of case classes - Scala's way to allow pattern matching on objects without
+    requiring  a large amount of boilerplate.In the common case, all you need to do is
+    add a single case keyword to each class that you want to be pattern matchable.
+
+
+============================
+Can I call an object with some parameters just like a function call?
+    Yes, provided you have an apply method with same signature.
+    Scala lets you extend the function call syntax to values other than functions.
+    e.g
+       val scores = new HashMap[String,Int]
+       val bobScore = scores("Bob")//calls scores.apply("Bob")
+
+Can I call a class just like a function call?
+    Yes its companion object must have a curresponding apply method.
+
+What is the use of apply method ?
+
+    apply method - taking a bunch of parameters and assembles an object.
+
+    a) Whenever you create a class, then you can create a companion object.
+        This lets you avoid "new" a visual noise.
+
+What is unapply method?
+
+      unapply method - takes a class as an input and then decomposes it to its fields.
+      If you have apply and unapply for a companion object, then you can use the object in pattern matching.
+
+how to extract an arbitrary number of fields object using pattern matching ?
+    idea is to use unapplySeq.
+    To extract an arbitrary sequence of values the method needs to be called unapplyseq. It returns
+    an Option[Seq[A]], Where A is the type of the extracted values.
+    e.g.
+    object Name {
+        def unapplySeq(input: String): Options[Seq[A]] =
+            if (input.trim == "") None else Some(input.trim.split("\\s+"))
+    }
+
+    author match {
+        case Name(first, last) => return 2
+        case Name (first,second,three) => return 3
+        case Name (first,second,third,fourth) => return 4
+        case None => return 0
+        case _ => return -1
+    }
+
+Scala has a 1-Tuple ?
+    Answer: No. In scala there are no Tuples with just one component.If the unapply method extracts
+    a single valaue , it should just return an Option of the target type.
+===================================
+
+Is there a break statement required ?
+    No.
+Is there a default statement ?
+    No.
+Can match against anything ?
+    Yes.
+Can we have guard condition for a case ?
+    Yes.
+Can I use a variable in pattern matching ?
+    Yes.
+Can I catch a variable and use it in guard condtion ?
+    Yes.
+Can we pattern match generic types in scala ?
+  No You can't because generic types are erased in JVM.
+
+Give some examples of Array/List/Tuple/RegularExpression/Variable Declarations matches ?
+
+    a) Array
+        arr match {
+            case Array(0) => "0"
+            case Array(x,y) => x + " " + y
+            case Array(x, _*) => x + "..."
+            case _ => "Something Else"
+        }
+
+    b) List
+        lst match {
+            case 0::Nil => "0"
+            case x::y::Nil  => x + " " + y
+            case x::tail => x + "..."
+            case _ => "Something Else"
+        }
+
+    c) pair match {
+            case (0,_) => "0 ..."
+            case (y,0) => y + " 0"
+            case _ => "Neither is Zero"
+        }
+
+    d) Regular Expressions
+        val pattern = "([0-9]*) ([a-z]*)".r
+       "99 bottles" match {
+            case pattern(num, item) => ... //This sets 99 to num and bottles to item
+       }
+       This call pattern.unapplySeq("99 bottles") yiled a sequence of strings that match the groups.
+       These are assigned to the variable num and item.Note that here the extractor is not a
+       companion object butan instantiated regular expression object.
+
+
+    e) variable Declarations.
+        val (x,y) = (1,2)
+        val (q,r) = Bigint(10) / 3
+        val Array(first,second,_*) = arr
+
+How pattern matching can be used in for loops?
+    You can use patterns with variables in for comprehension.
+    For each traversed value, the variables are bound.
+    This makes it possible to traverse a map.
+
+    for((k,v) <- System.getProperties()) println(k + " -> " + v)
+    for((k,"") <- System.getProperties()) println(k) //prints only properties with value Empty
+    for((k,v) <- System.getProperties() if v == "") println(k) //prints same with guard use
+

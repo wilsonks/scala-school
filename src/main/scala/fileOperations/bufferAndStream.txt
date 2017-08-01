@@ -1,0 +1,52 @@
+Buffer:
+    It is a region of a physical memory storage used to temporarily store data while
+    it is being moved from one place to another.That physical memory storage would be RAM in
+    most cases.
+
+Stream:
+    Stream (or IO Stream) represents an input source or an output destination.A Stream can represent many
+    different kinds of sources and destinations including disk files, devices, other programs and memory arrays.
+
+The Input stream possibles are disk file,network connection
+The Output stream possibles are disk file, network connection
+
+Streams are of 3 Types
+1. Byte Streams - For Reading and Writing Binary Data
+    They perform input and output of 8-bits.
+    All byte stream classes are descended from InputStream && OutputStream.
+    a)InputStream - Obtain input as raw bytes. Famous sub classes are below.
+        1)FileInputStream --
+    b)OutputStream - Give output as raw bytes
+
+2. Character Streams - For Reading and Writing Text
+   Thy are a layer on top of Byte Streams.They convert
+   bytes to characters & characters to bytes using a character encoding.
+   All character stream classes are descended from Reader && Writer
+   a)Reader
+    1)FileReader
+    2)
+
+
+########################################################################################
+#Byte Streams & Character Streams use unbuffered I/O, means each read or write request is
+#directly handled by the underlying OS.This can make a program much less efficient since
+#each such request often triggers disk access,network activity.To reduce this kind of
+#overhead the java platform implements buffered IO streams.
+#######################################################################################
+
+3. Buffered Streams - Buffered Reader || Buffered writer
+    Buffered input streams read data from a memory area known as a buffer; the
+    native input API is invoked only when the buffer is empty.Similarly buffered
+    output streams write data to a buffer and only when the buffer is full the
+    native API is invoked.
+
+    A program can convert an unbuffered stream => buffered stream using a wrapper,
+    where the unbuffered stream object is passed to the constructor for a buffered
+    stream class.
+
+    There are 4 buffered stream classes which are used to wrap unbuffered streams.
+
+    1)  BufferedInputStream     //buffered Input Byte Stream
+    2)  BufferedOutputStream    //buffered Output Byte Stream
+    3)  BufferedReader          //buffered Input Character Stream
+    4)  BufferedWriter          //buffered Output Character Stream
