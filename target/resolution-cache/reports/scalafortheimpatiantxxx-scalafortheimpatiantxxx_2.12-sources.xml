@@ -6,8 +6,8 @@
 		module="scalafortheimpatiantxxx_2.12"
 		revision="1.0"
 		conf="sources"
-		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20170712130821"/>
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, ensime-internal"
+		date="20170913191443"/>
 	<dependencies>
 	</dependencies>
 </ivy-report>

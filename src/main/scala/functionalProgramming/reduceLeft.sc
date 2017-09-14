@@ -5,7 +5,7 @@
 //3. concatenation (String)
 
 object reduceLeftFun {
-  (1 to 9).reduceLeft(_ * _)
+  (1 to 9).reduceLeft(_*_)
   (1 to 10).reduceLeft(_ + _)
 
   def fact(n: Int) = (1 to n).reduceLeft(_*_)
